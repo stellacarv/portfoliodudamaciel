@@ -1589,3 +1589,15 @@ section,
 }
 
 /* No celular, o comportamento continua o padrão do Bootstrap (img-fluid) */
+
+/* Configuração para Desktop (telas de computador) */
+@media (min-width: 992px) {
+  /* Alvo: A div que segura a imagem e a própria imagem */
+  .portfolio-item .portfolio-content,
+  .portfolio-item img {
+    height: auto !important; /* Libera alturas fixas anteriores */
+    aspect-ratio: 4 / 5 !important; /* Força a proporção vertical */
+    width: 100% !important;
+    object-fit: cover !important; /* Garante que não achate seu rosto */
+  }
+}
