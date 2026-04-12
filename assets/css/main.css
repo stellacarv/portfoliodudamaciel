@@ -1577,3 +1577,15 @@ section,
     font-size: 1.2rem !important;
   }
 }
+
+/* Configuração para Desktop (telas maiores que 992px) */
+@media (min-width: 992px) {
+  .portfolio-item img {
+    width: 100%;
+    aspect-ratio: 4 / 5; /* Força a proporção 4:5 */
+    object-fit: cover;   /* Garante que a imagem preencha o espaço sem esticar */
+    object-position: center; /* Centraliza o corte da foto */
+  }
+}
+
+/* No celular, o comportamento continua o padrão do Bootstrap (img-fluid) */
