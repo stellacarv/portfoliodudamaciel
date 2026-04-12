@@ -1539,3 +1539,19 @@ section,
     transform: translateY(-5px); /* Efeito de flutuar (sobe 5px) */
     box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1); /* Sombra suave */
 }
+
+.container-das-fotos {
+    display: grid;
+    /* Isso força 3 colunas de tamanhos iguais */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 10px; /* Ajuste o espaçamento entre as fotos como preferir */
+    padding: 10px;
+}
+
+/* Garante que as imagens não estourem o tamanho da coluna */
+.container-das-fotos img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px; /* Para manter o estilo arredondado que vi no print */
+}
