@@ -1578,26 +1578,47 @@ section,
   }
 }
 
-/* Configuração para Desktop (telas maiores que 992px) */
+/* 1. CONFIGURAÇÃO GERAL (Mobile Primeiro) */
+.portfolio-item img, 
+.img-fluid {
+    width: 100% !important;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 2%;
+    transition: filter 0.3s ease, transform 0.3s ease;
+    /* No mobile, deixamos a altura livre ou quadrada para caber as 3 colunas */
+    aspect-ratio: 1 / 1; 
+}
+
+/* 2. CONFIGURAÇÃO DESKTOP (Proporção 4:5) */
 @media (min-width: 992px) {
-  .portfolio-item img {
-    width: 100%;
-    aspect-ratio: 4 / 5; /* Força a proporção 4:5 */
-    object-fit: cover;   /* Garante que a imagem preencha o espaço sem esticar */
-    object-position: center; /* Centraliza o corte da foto */
+    .portfolio-item .portfolio-content,
+    .portfolio-item img {
+        aspect-ratio: 4 / 5 !important; /* Força o formato retrato */
+        height: auto !important; /* Remove qualquer trava de 150px ou 400px */
+    }
+}
+
+/* 3. AJUSTE DO TEXTO NO MOBILE (Para não encavalar) */
+@media (max-width: 768px) {
+  .portfolio-info {
+    padding: 5px !important;
+  }
+  .portfolio-info h4 {
+    font-size: 0.8rem !important;
+  }
+  .portfolio-info p {
+    display: none !important; /* Esconde a descrição no celular para limpar o visual */
+  }
+  .portfolio-info .preview-link,
+  .portfolio-info .details-link {
+    font-size: 1rem !important;
   }
 }
 
-/* No celular, o comportamento continua o padrão do Bootstrap (img-fluid) */
-
-/* Configuração para Desktop (telas de computador) */
-@media (min-width: 992px) {
-  /* Alvo: A div que segura a imagem e a própria imagem */
-  .portfolio-item .portfolio-content,
-  .portfolio-item img {
-    height: auto !important; /* Libera alturas fixas anteriores */
-    aspect-ratio: 4 / 5 !important; /* Força a proporção vertical */
-    width: 100% !important;
-    object-fit: cover !important; /* Garante que não achate seu rosto */
-  }
+/* Efeito PB no Hover */
+.img-fluid:hover {
+    filter: grayscale(100%);
+    cursor: pointer;
 }
