@@ -1551,3 +1551,29 @@ section,
         height: 400px; /* Altura maior para o Desktop */
     }
 }
+
+/* Media Query para telas pequenas (mobile) */
+@media (max-width: 768px) {
+  /* Alvo: O container do texto que transborda */
+  .portfolio-info {
+    padding: 10px !important; /* Diminui o respiro interno */
+  }
+
+  /* Alvo: O título (ex: Amazon) */
+  .portfolio-info h4 {
+    font-size: 0.9rem !important; /* Diminui a fonte do título */
+    margin-bottom: 5px !important;
+  }
+
+  /* Alvo: A descrição longa (Campanha internacional...) */
+  /* Vamos ESCONDER para limpar o visual */
+  .portfolio-info p {
+    display: none !important;
+  }
+
+  /* Opcional: Diminuir os ícones de zoom e link para não brigar com o título */
+  .portfolio-info .preview-link,
+  .portfolio-info .details-link {
+    font-size: 1.2rem !important;
+  }
+}
