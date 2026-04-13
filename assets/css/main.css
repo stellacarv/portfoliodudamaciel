@@ -1552,3 +1552,74 @@ section,
     justify-content: center;
     padding: 30px 0;
 }
+/* 1. CONTAINER DO CONTEÚDO */
+.portfolio-info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); 
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+    /* Removemos o flex do pai para usar absolute nos filhos */
+}
+
+/* 2. O TÍTULO EM UM RETÂNGULO MENOR (NO TOPO) */
+.portfolio-info h4 {
+    position: absolute;
+    top: 10%;            /* Fica na parte superior */
+    left: 50%;
+    transform: translateX(-50%); /* Centraliza o retângulo horizontalmente */
+    
+    background-color: #c5d975; /* Seu verde padrão */
+    color: #000 !important;
+    padding: 5px 15px;   /* Retângulo menor e elegante */
+    border-radius: 4px;
+    font-size: 0.75rem !important;
+    font-weight: 700;
+    margin: 0;
+    white-space: nowrap;
+    width: auto;         /* Largura se adapta ao texto */
+    max-width: 80%;      /* Não deixa o retângulo encostar nas bordas */
+}
+
+.portfolio-info .preview-link {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important; /* Move 50% do próprio tamanho para trás */
+    
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    
+    color: #ffffff !important;
+    font-size: 2rem;
+    text-decoration: none;
+    margin: 0 !important; /* Remove qualquer margem que possa deslocar o ícone */
+}
+
+/* 4. EFEITOS DE HOVER */
+.portfolio-content:hover .portfolio-info {
+    opacity: 1;
+}
+
+.portfolio-content:hover img {
+    filter: grayscale(100%) brightness(0.7);
+    transform: scale(1.05);
+}
+
+/* 5. AJUSTE PARA MOBILE (3 COLUNAS) */
+@media (max-width: 768px) {
+    .portfolio-info h4 {
+        font-size: 0.55rem !important;
+        padding: 3px 8px;
+        top: 8%;
+    }
+    
+    .portfolio-info .preview-link {
+        font-size: 1.5rem; /* Lupa menor no celular para não cobrir tudo */
+    }
+}
