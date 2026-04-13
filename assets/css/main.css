@@ -1463,244 +1463,92 @@ section,
   background: color-mix(in srgb, var(--accent-color), transparent 20%);
 }
 
-.portfolio-item img {
-  width: 100%;
-  aspect-ratio: 4 / 5; /* Define a proporção vertical */
-  object-fit: cover;   /* Corta as bordas excedentes para não distorcer */
-  object-position: center; /* Mantém o foco no centro da foto */
-  border-radius: 1%;
-}
-
-/* Estilo base da imagem */
-.img-fluid {
-    border-radius: 2%; /* Arredondamento leve solicitado */
-    transition: filter 0.3s ease, transform 0.3s ease; /* Transição suave para o efeito */
-    display: block;
-      aspect-ratio: 4 / 5; /* Define a proporção vertical */
-  object-fit: cover;   /* Corta as bordas excedentes para não distorcer */
-  object-position: center; /* Mantém o foco no centro da foto */
-}
-
-/* Efeito de Hover (Preto e Branco) */
-.img-fluid:hover {
-    filter: grayscale(100%); /* Transforma a foto em PB ao passar o mouse */
-    cursor: pointer;
-}
-
-/* Descrição */
-.hero-description {
-    line-height: 1.6; 
-    font-size: 1.1rem; 
-    color: #626262; /* Um cinza claro para destacar no fundo preto */
-    margin-bottom: 30px;
-}
-
-/* Container Principal */
-.hero-container {
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    text-align: center; 
-    max-width: 800px; 
-    margin: 0 auto; 
-    padding: 20px;
-}
-
-/* Estilo do Título */
-.hero-title {
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: #ffffff; 
-    margin-bottom: 20px;
-}
-
-/* Cor sólida no nome */
-.highlight-name {
-    color: #c5d975; /* Verde sólido */
-}
-
-/* Botões Customizados */
-.btn-custom {
-    background-color: #c5d975 !important; /* Verde sólido */
-    color: #000 !important; /* Texto preto para leitura */
-    border: none;
-    border-radius: 3; 
-    padding: 12px 28px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease; /* Suaviza a transição do hover */
-    display: inline-block;
-}
-
-/* Hover Flutuante Branco */
-.btn-custom:hover {
-    background-color: #ffffff !important;
-    color: #000 !important;
-    transform: translateY(-5px); /* Efeito de flutuar (sobe 5px) */
-    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1); /* Sombra suave */
-}
-
-.col-4 img {
-    width: 100%;
-    height: 150px; /* Ajuste a altura conforme preferir para o mobile */
-    object-fit: cover; /* Isso corta a imagem sem distorcer para preencher o quadrado */
-}
-
-@media (min-width: 768px) {
-    .col-4 img {
-        height: 400px; /* Altura maior para o Desktop */
-    }
-}
-
-/* Media Query para telas pequenas (mobile) */
-@media (max-width: 768px) {
-  /* Alvo: O container do texto que transborda */
-  .portfolio-info {
-    padding: 10px !important; /* Diminui o respiro interno */
-  }
-
-  /* Alvo: O título (ex: Amazon) */
-  .portfolio-info h4 {
-    font-size: 0.9rem !important; /* Diminui a fonte do título */
-    margin-bottom: 5px !important;
-  }
-
-  /* Alvo: A descrição longa (Campanha internacional...) */
-  /* Vamos ESCONDER para limpar o visual */
-  .portfolio-info p {
-    display: none !important;
-  }
-
-  /* Opcional: Diminuir os ícones de zoom e link para não brigar com o título */
-  .portfolio-info .preview-link,
-  .portfolio-info .details-link {
-    font-size: 1.2rem !important;
-  }
-}
-
-/* 1. CONFIGURAÇÃO GERAL (Mobile Primeiro) */
+/* 1. RESET E PADRONIZAÇÃO DAS IMAGENS (GLOBAL) */
 .portfolio-item img, 
-.img-fluid {
+.img-fluid, 
+.portfolio-content img {
     width: 100% !important;
-    display: block;
-    object-fit: cover;
-    object-position: center;
-    border-radius: 2%;
+    display: block !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    border-radius: 4px;
     transition: filter 0.3s ease, transform 0.3s ease;
-    /* No mobile, deixamos a altura livre ou quadrada para caber as 3 colunas */
-    aspect-ratio: 1 / 1; 
+    /* Força o 4:5 que você quer como padrão internacional */
+    aspect-ratio: 4 / 5 !important; 
+    height: auto !important;
 }
 
-/* 2. CONFIGURAÇÃO DESKTOP (Proporção 4:5) */
-@media (min-width: 992px) {
-    .portfolio-item .portfolio-content,
-    .portfolio-item img {
-        aspect-ratio: 4 / 5 !important; /* Força o formato retrato */
-        height: auto !important; /* Remove qualquer trava de 150px ou 400px */
+/* 2. GRID DE 3 COLUNAS (O "PULO DO GATO") */
+/* Isso força o layout tipo Instagram no celular */
+.isotope-container {
+    display: flex !important;
+    flex-wrap: wrap !important;
+}
+
+/* Forçamos a largura de 33.33% em todas as telas, 
+   o Bootstrap só mudará se usarmos col-lg-4 no HTML */
+.portfolio-item {
+    width: 33.333% !important; 
+    max-width: 33.333% !important;
+    padding: 5px !important; /* Espaçamento pequeno entre as fotos */
+    margin-bottom: 10px !important;
+    flex: 0 0 33.333% !important;
+}
+
+/* 3. AJUSTE DE TEXTO NO MOBILE (PARA NÃO DESPROPORCIONAR) */
+@media (max-width: 768px) {
+    .portfolio-info {
+        padding: 4px !important;
+        text-align: center;
+    }
+
+    .portfolio-info h4 {
+        font-size: 0.6rem !important; /* Fonte minúscula para caber na coluna */
+        font-weight: 700;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; /* Adiciona "..." se o nome for grande */
+        margin: 0 !important;
+    }
+
+    /* Esconde o resto para manter o grid limpo no celular */
+    .portfolio-info p, 
+    .portfolio-info .preview-link, 
+    .portfolio-info .details-link {
+        display: none !important;
     }
 }
 
-/* 3. AJUSTE DO TEXTO NO MOBILE (Para não encavalar) */
-@media (max-width: 768px) {
-  .portfolio-info {
-    padding: 5px !important;
-  }
-  .portfolio-info h4 {
-    font-size: 0.8rem !important;
-  }
-  .portfolio-info p {
-    display: none !important; /* Esconde a descrição no celular para limpar o visual */
-  }
-  .portfolio-info .preview-link,
-  .portfolio-info .details-link {
-    font-size: 1rem !important;
-  }
-}
-
-/* Efeito PB no Hover */
+/* 4. ESTILOS DE INTERAÇÃO */
 .img-fluid:hover {
     filter: grayscale(100%);
     cursor: pointer;
 }
 
-/* BOTÃO (mantido igual) */
+.portfolio-item:hover {
+    transform: scale(1.02);
+}
+
+/* 5. BOTÃO CUSTOMIZADO */
 .btn-custom {
     background-color: #c5d975 !important;
     color: #000 !important;
-    border: none;
     border-radius: 50px;
     padding: 12px 40px;
     font-weight: 600;
-    transition: all 0.3s ease;
-    cursor: pointer;
+    text-decoration: none;
     display: inline-block;
-    width: auto;
+    transition: all 0.3s ease;
 }
 
 .btn-custom:hover {
-    background-color: #000 !important;
-    color: #c5d975 !important;
+    background-color: #ffffff !important;
     transform: translateY(-3px);
 }
 
-/* 🔥 CONTAINER CORRIGIDO (ANTES ERA BLOCK → AGORA FLEX) */
-.isotope-container {
-    width: 100% !important;
-    display: flex !important;
-    flex-wrap: wrap;
-}
-
-/* 🔥 ITENS LADO A LADO */
-.portfolio-item {
-    width: 33.333%;
-    padding: 10px;
-    margin-bottom: 30px;
-    transition: none !important;
-}
-
-/* 📱 RESPONSIVO */
-@media (max-width: 992px) {
-  .portfolio-item {
-    width: 50%;
-  }
-}
-
-@media (max-width: 576px) {
-  .portfolio-item {
-    width: 100%;
-  }
-}
-
-/* BOTÃO CENTRALIZADO */
 #loadMoreContainer {
     width: 100%;
-    clear: both;
     display: flex;
     justify-content: center;
-    padding: 20px 0;
-}
-
-/* 🔥 PADRONIZAÇÃO DAS IMAGENS */
-.portfolio-content {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.portfolio-content img {
-  width: 100%;
-  height: 100%;
-  display: block;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-  object-position: center;
-}
-
-/* ✨ EFEITO HOVER (opcional, mas bonito) */
-.portfolio-item {
-  transition: transform 0.3s ease;
-}
-
-.portfolio-item:hover {
-  transform: scale(1.03);
+    padding: 30px 0;
 }
