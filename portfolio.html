@@ -975,53 +975,76 @@
   <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script>
-document.addEventListener('DOMContentLoaded', function() {
-  // 1. Inicializa o Isotope (caso o seu main.js não tenha feito)
-  const container = document.querySelector('.isotope-container');
-  let iso = new Isotope(container, {
-    itemSelector: '.portfolio-item',
-    layoutMode: 'masonry'
-  });
+/**
+   * Isotope e Lógica "Ver Mais"
+   */
+  document.querySelectorAll('.isotope-layout').forEach(function(isotopeItem) {
+    let layout = isotopeItem.getAttribute('data-layout') ?? 'masonry';
+    let sort = isotopeItem.getAttribute('data-sort') ?? 'original-order';
 
-  const loadMoreBtn = document.querySelector('#load-more-btn');
+    let initIsotope;
+    const container = isotopeItem.querySelector('.isotope-container');
 
-  if (loadMoreBtn) {
-    loadMoreBtn.addEventListener('click', function() {
-      // 2. Seleciona os itens escondidos
-      const hiddenItems = document.querySelectorAll('.portfolio-hidden');
-
-      hiddenItems.forEach(item => {
-        item.classList.remove('d-none');
-        item.classList.remove('portfolio-hidden');
+    // Inicialização do Isotope
+    imagesLoaded(container, function() {
+      initIsotope = new Isotope(container, {
+        itemSelector: '.portfolio-item',
+        layoutMode: layout,
+        sortBy: sort,
+        filter: '*', // Começa mostrando tudo o que não for d-none
+        percentPosition: true
       });
-
-      // 3. A MÁGICA: Avisa ao Isotope que existem novos itens na área
-      iso.appended(hiddenItems); // Faz o Isotope registrar esses itens
-      iso.layout();              // Recalcula o mosaico
-      
-      // 4. Garante que as imagens novas carreguem na posição certa
-      imagesLoaded(container).on('progress', function() {
-        iso.layout();
-      });
-
-      // Esconde o botão
-      loadMoreBtn.style.display = 'none';
     });
-  }
 
-  // 5. Ajuste dos Filtros (Nacionais/Internacionais)
-  const filters = document.querySelectorAll('.portfolio-filters li');
-  filters.forEach(filter => {
-    filter.addEventListener('click', function() {
-      // Remove classe ativa de outros e coloca neste
-      filters.forEach(f => f.classList.remove('filter-active'));
-      this.classList.add('filter-active');
+    // Lógica do botão "Ver Mais"
+    const loadMoreBtn = document.getElementById('loadMore');
+    const loadMoreContainer = document.getElementById('loadMoreContainer');
 
-      const filterValue = this.getAttribute('data-filter');
-      iso.arrange({ filter: filterValue }); // Filtra apenas as classes certas
+    if (loadMoreBtn) {
+      loadMoreBtn.addEventListener('click', function() {
+        const hiddenItems = container.querySelectorAll('.portfolio-hidden');
+        
+        if (loadMoreContainer) {
+          loadMoreContainer.style.setProperty('display', 'none', 'important');
+        }
+
+        // Revela os itens removendo as classes de bloqueio
+        hiddenItems.forEach(item => {
+          item.classList.remove('d-none');
+          item.classList.remove('portfolio-hidden');
+        });
+
+        if (initIsotope) {
+          // 1. Atualiza a lista de itens na memória do Isotope
+          initIsotope.reloadItems();
+          
+          // 2. Identifica qual filtro está ativo no momento do clique
+          const activeFilter = isotopeItem.querySelector('.isotope-filters .filter-active').getAttribute('data-filter');
+          
+          // 3. Aplica o filtro NOVAMENTE para garantir que itens errados não apareçam
+          imagesLoaded(container, function() {
+            initIsotope.arrange({ filter: activeFilter });
+          });
+        }
+      });
+    }
+
+    // Lógica dos Filtros (Nacionais / Internacionais)
+    isotopeItem.querySelectorAll('.isotope-filters li').forEach(function(filterBtn) {
+      filterBtn.addEventListener('click', function() {
+        // Troca a classe ativa
+        isotopeItem.querySelector('.isotope-filters .filter-active').classList.remove('filter-active');
+        this.classList.add('filter-active');
+
+        const filterValue = this.getAttribute('data-filter');
+
+        if (initIsotope) {
+          // Aplica o filtro exato selecionado
+          initIsotope.arrange({ filter: filterValue });
+        }
+      });
     });
   });
-});
 </script>
   <script src="assets/js/main.js"></script>
 
