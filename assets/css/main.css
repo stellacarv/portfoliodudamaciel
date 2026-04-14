@@ -1623,3 +1623,8 @@ section,
         font-size: 1.5rem; /* Lupa menor no celular para não cobrir tudo */
     }
 }
+
+/* Esconde os itens, mas permite que o Isotope os reconheça */
+.portfolio-hidden {
+    display: none !important;
+}
