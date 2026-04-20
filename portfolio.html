@@ -984,6 +984,8 @@
 
     let initIsotope;
     const container = isotopeItem.querySelector('.isotope-container');
+    const loadMoreBtn = document.getElementById('loadMore');
+    const loadMoreContainer = document.getElementById('loadMoreContainer');
 
     // Inicialização do Isotope
     imagesLoaded(container, function() {
@@ -991,15 +993,12 @@
         itemSelector: '.portfolio-item',
         layoutMode: layout,
         sortBy: sort,
-        filter: '*', // Começa mostrando tudo o que não for d-none
+        filter: '*',
         percentPosition: true
       });
     });
 
     // Lógica do botão "Ver Mais"
-    const loadMoreBtn = document.getElementById('loadMore');
-    const loadMoreContainer = document.getElementById('loadMoreContainer');
-
     if (loadMoreBtn) {
       loadMoreBtn.addEventListener('click', function() {
         const hiddenItems = container.querySelectorAll('.portfolio-hidden');
@@ -1008,20 +1007,14 @@
           loadMoreContainer.style.setProperty('display', 'none', 'important');
         }
 
-        // Revela os itens removendo as classes de bloqueio
         hiddenItems.forEach(item => {
           item.classList.remove('d-none');
           item.classList.remove('portfolio-hidden');
         });
 
         if (initIsotope) {
-          // 1. Atualiza a lista de itens na memória do Isotope
           initIsotope.reloadItems();
-          
-          // 2. Identifica qual filtro está ativo no momento do clique
           const activeFilter = isotopeItem.querySelector('.isotope-filters .filter-active').getAttribute('data-filter');
-          
-          // 3. Aplica o filtro NOVAMENTE para garantir que itens errados não apareçam
           imagesLoaded(container, function() {
             initIsotope.arrange({ filter: activeFilter });
           });
@@ -1032,14 +1025,25 @@
     // Lógica dos Filtros (Nacionais / Internacionais)
     isotopeItem.querySelectorAll('.isotope-filters li').forEach(function(filterBtn) {
       filterBtn.addEventListener('click', function() {
-        // Troca a classe ativa
         isotopeItem.querySelector('.isotope-filters .filter-active').classList.remove('filter-active');
         this.classList.add('filter-active');
 
         const filterValue = this.getAttribute('data-filter');
 
+        // --- CORREÇÃO AQUI ---
+        if (loadMoreContainer) {
+          if (filterValue === '.filter-product') {
+            // Esconde o botão se for Internacional
+            loadMoreContainer.style.setProperty('display', 'none', 'important');
+          } else {
+            // Volta a mostrar se for outro filtro (Tudo ou Nacionais)
+            // Nota: Se você já tiver clicado em "Ver Mais", esse display pode precisar de um reset mais robusto.
+            loadMoreContainer.style.removeProperty('display');
+          }
+        }
+        // ---------------------
+
         if (initIsotope) {
-          // Aplica o filtro exato selecionado
           initIsotope.arrange({ filter: filterValue });
         }
       });
