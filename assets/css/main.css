@@ -1043,150 +1043,6 @@ section,
 }
 
 /*--------------------------------------------------------------
-# Services Section
---------------------------------------------------------------*/
-.services .service-item {
-  background-color: var(--surface-color);
-  text-align: center;
-  padding: 80px 20px;
-  transition: all ease-in-out 0.3s;
-  height: 100%;
-}
-
-.services .service-item .icon {
-  margin: 0 auto;
-  width: 64px;
-  height: 64px;
-  background: var(--accent-color);
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-  transition: 0.3s;
-  transform-style: preserve-3d;
-}
-
-.services .service-item .icon i {
-  color: var(--contrast-color);
-  font-size: 28px;
-  transition: ease-in-out 0.3s;
-}
-
-.services .service-item .icon::before {
-  position: absolute;
-  content: "";
-  left: -8px;
-  top: -8px;
-  height: 100%;
-  width: 100%;
-  background: color-mix(in srgb, var(--accent-color), transparent 80%);
-  border-radius: 5px;
-  transition: all 0.3s ease-out 0s;
-  transform: translateZ(-1px);
-}
-
-.services .service-item h3 {
-  font-weight: 700;
-  margin: 10px 0 15px 0;
-  font-size: 22px;
-}
-
-.services .service-item p {
-  line-height: 24px;
-  font-size: 14px;
-  margin-bottom: 0;
-}
-
-.services .service-item:hover {
-  background: var(--accent-color);
-  border-color: var(--accent-color);
-}
-
-.services .service-item:hover .icon {
-  background: var(--surface-color);
-}
-
-.services .service-item:hover .icon i {
-  color: var(--accent-color);
-}
-
-.services .service-item:hover .icon::before {
-  background: color-mix(in srgb, var(--background-color), transparent 70%);
-}
-
-.services .service-item:hover h3,
-.services .service-item:hover p {
-  color: var(--contrast-color);
-}
-
-/*--------------------------------------------------------------
-# Service Details Section
---------------------------------------------------------------*/
-.service-details .services-list {
-  background-color: var(--surface-color);
-  padding: 10px 30px;
-  border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
-  margin-bottom: 20px;
-}
-
-.service-details .services-list a {
-  display: block;
-  line-height: 1;
-  padding: 8px 0 8px 15px;
-  border-left: 3px solid color-mix(in srgb, var(--default-color), transparent 70%);
-  margin: 20px 0;
-  color: color-mix(in srgb, var(--default-color), transparent 20%);
-  transition: 0.3s;
-}
-
-.service-details .services-list a.active {
-  color: var(--heading-color);
-  font-weight: 700;
-  border-color: var(--accent-color);
-}
-
-.service-details .services-list a:hover {
-  border-color: var(--accent-color);
-}
-
-.service-details .services-img {
-  margin-bottom: 20px;
-}
-
-.service-details h3 {
-  font-size: 26px;
-  font-weight: 700;
-}
-
-.service-details h4 {
-  font-size: 20px;
-  font-weight: 700;
-}
-
-.service-details p {
-  font-size: 15px;
-}
-
-.service-details ul {
-  list-style: none;
-  padding: 0;
-  font-size: 15px;
-}
-
-.service-details ul li {
-  padding: 5px 0;
-  display: flex;
-  align-items: center;
-}
-
-.service-details ul i {
-  font-size: 20px;
-  margin-right: 8px;
-  color: var(--accent-color);
-}
-
-/*--------------------------------------------------------------
 # Portfolio Section
 --------------------------------------------------------------*/
 .portfolio .portfolio-filters {
@@ -1627,4 +1483,57 @@ section,
 /* Esconde os itens, mas permite que o Isotope os reconheça */
 .portfolio-hidden {
     display: none !important;
+}
+
+.hero-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;      /* centraliza horizontal */
+  justify-content: center;  /* centraliza vertical */
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.hero-title {
+  font-size: 2.8rem;
+  font-weight: 700; /* negrito */
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.highlight-name {
+  color: #c5d975; /* verde igual botão */
+  font-weight: 800;
+}
+
+.hero-description {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #dddddd;
+  margin-bottom: 30px;
+}
+
+/* BOTÕES */
+.hero-actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-custom {
+  background-color: #c5d975;
+  color: #000;
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-custom:hover {
+  background-color: #c5d975;
+  transform: translateY(-2px);
 }
